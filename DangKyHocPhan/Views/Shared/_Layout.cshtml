@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Đăng Ký Học Phần</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DangKyHocPhan.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light mb-4">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-journal-bookmark-fill text-primary me-2 fs-4"></i>
+                    <span>Đăng Ký Học Phần</span>
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house-door me-1"></i> Trang Chủ
+                            </a>
+                        </li>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("ADMIN"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark fw-semibold d-flex align-items-center" asp-controller="Courses" asp-action="Index">
+                                        <i class="bi bi-grid-3x3-gap-fill text-primary me-1"></i> Quản Lý Học Phần
+                                    </a>
+                                </li>
+                            }
+                            @if (User.IsInRole("STUDENT"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark fw-semibold d-flex align-items-center" asp-controller="Enroll" asp-action="MyCourses">
+                                        <i class="bi bi-journal-check text-success me-1"></i> Học Phần Đã Đăng Ký
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item d-flex align-items-center">
+                                <span class="nav-link text-dark me-2 d-flex align-items-center">
+                                    <i class="bi bi-person-circle text-muted me-1"></i>
+                                    <span>Xin chào, <strong>@User.Identity.Name</strong>!</span>
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline" asp-controller="Account" asp-action="Logout" method="post">
+                                    <button type="submit" class="nav-link text-dark py-2 d-flex align-items-center" style="border: none; background: none; width: 100%;">
+                                        <i class="bi bi-box-arrow-right me-1"></i> Đăng Xuất
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark d-flex align-items-center" asp-controller="Account" asp-action="Login">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i> Đăng Nhập
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark d-flex align-items-center" asp-controller="Account" asp-action="Register">
+                                    <i class="bi bi-person-plus me-1"></i> Đăng Ký
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container flex-grow-1">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted bg-white py-3 mt-auto">
+        <div class="container text-center">
+            &copy; 2026 - Đăng Ký Học Phần
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

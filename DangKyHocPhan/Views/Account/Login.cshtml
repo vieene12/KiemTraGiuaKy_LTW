@@ -1,0 +1,83 @@
+@model DangKyHocPhan.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Đăng Nhập";
+}
+
+<div class="row justify-content-center my-5">
+    <div class="col-md-5">
+        <!-- Flat Card -->
+        <div class="card shadow-sm border">
+            <div class="card-body p-4">
+                <!-- Inner Title -->
+                <div class="text-center mb-4">
+                    <i class="bi bi-shield-lock-fill text-primary fs-1"></i>
+                    <h3 class="fw-bold text-dark mt-2 mb-0">ĐĂNG NHẬP HỆ THỐNG</h3>
+                </div>
+
+                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    
+                    <div class="form-group mb-3">
+                        <label asp-for="Email" class="form-label fw-bold d-flex align-items-center">
+                            <i class="bi bi-envelope text-muted me-2"></i> Email
+                        </label>
+                        <input asp-for="Email" class="form-control" placeholder="Nhập địa chỉ email của bạn" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Password" class="form-label fw-bold d-flex align-items-center">
+                            <i class="bi bi-lock text-muted me-2"></i> Mật khẩu
+                        </label>
+                        <input asp-for="Password" class="form-control" type="password" placeholder="Nhập mật khẩu của bạn" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-4 form-check d-flex align-items-center">
+                        <input asp-for="RememberMe" class="form-check-input mt-0 me-2" />
+                        <label asp-for="RememberMe" class="form-check-label text-muted">@Html.DisplayNameFor(m => m.RememberMe)</label>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary fw-bold py-2">
+                            <i class="bi bi-box-arrow-in-right me-1"></i> Đăng Nhập
+                        </button>
+                    </div>
+                </form>
+
+                <div class="text-center my-3">
+                    <hr />
+                    <span class="bg-white px-2 text-muted small">Hoặc sử dụng tài khoản khác</span>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <a asp-action="ExternalLogin" asp-route-provider="Google" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="btn btn-outline-danger d-flex align-items-center justify-content-center fw-bold py-2">
+                        <i class="bi bi-google me-2"></i>
+                        Đăng nhập với Google
+                    </a>
+                </div>
+            </div>
+            <!-- Flat Footer -->
+            <div class="card-footer text-center py-3">
+                <span class="text-muted">Chưa có tài khoản? </span>
+                <a asp-action="Register" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="text-decoration-none fw-bold">Đăng ký ngay</a>
+            </div>
+        </div>
+
+        <!-- Info alert -->
+        <div class="alert alert-info mt-4">
+            <h5 class="fw-bold d-flex align-items-center mb-2">
+                <i class="bi bi-info-circle-fill me-2"></i> Tài khoản dùng thử:
+            </h5>
+            <ul class="mb-0 ps-3">
+                <li><strong>Admin:</strong> admin@gmail.com / Admin@123</li>
+                <li><strong>Student:</strong> student@gmail.com / Student@123</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,78 @@
+@model IEnumerable<DangKyHocPhan.Models.Course>
+
+@{
+    ViewData["Title"] = "Học Phần Đã Đăng Ký";
+}
+
+<div class="container my-4">
+    <!-- Header Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-dark mb-2">HỌC PHẦN ĐÃ ĐĂNG KÝ</h1>
+        <div class="mx-auto bg-success" style="width: 60px; height: 3px; margin-bottom: 1rem;"></div>
+        <p class="lead text-muted">Danh sách các học phần bạn đã đăng ký thành công</p>
+    </div>
+
+    <!-- Flat Table Container -->
+    <div class="table-container shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 100px;">Hình ảnh</th>
+                        <th scope="col">Tên Học Phần</th>
+                        <th scope="col">Số Tín Chỉ</th>
+                        <th scope="col">Giảng Viên</th>
+                        <th scope="col">Danh Mục</th>
+                        <th scope="col" class="text-center" style="width: 180px;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var course in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@(string.IsNullOrEmpty(course.Image) ? "" : course.Image)" 
+                                         alt="@course.Name"
+                                         class="img-thumbnail"
+                                         style="width: 60px; height: 60px; object-fit: cover;"
+                                         onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'60\' height=\'60\' viewBox=\'0 0 60 60\'><rect width=\'60\' height=\'60\' fill=\'%23f1f5f9\'/><text x=\'50%\' y=\'55%\' font-size=\'8\' text-anchor=\'middle\' fill=\'%2394a3b8\'>No Image</text></svg>';" />
+                                </td>
+                                <td class="fw-bold text-dark">@course.Name</td>
+                                <td>
+                                    <span class="badge bg-slate-light text-dark font-monospace">@course.Credits</span> tín chỉ
+                                </td>
+                                <td>@course.Lecturer</td>
+                                <td>
+                                    <span class="badge bg-primary-light">@(course.Category?.Name ?? "N/A")</span>
+                                </td>
+                                <td class="text-center">
+                                    <form asp-controller="Enroll" asp-action="UnenrollCourse" asp-route-courseId="@course.Id" method="post" class="mb-0">
+                                        <button type="submit" class="btn btn-sm btn-danger fw-bold">
+                                            <i class="bi bi-trash-fill me-1"></i> Hủy Đăng Ký
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-muted bg-white">
+                                <div class="mb-3">
+                                    <i class="bi bi-journal-plus fs-2 text-muted"></i>
+                                </div>
+                                <p class="mb-3">Bạn chưa đăng ký học phần nào trong học kỳ này.</p>
+                                <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-sm fw-bold">
+                                    <i class="bi bi-search me-1"></i> Xem danh sách học phần
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

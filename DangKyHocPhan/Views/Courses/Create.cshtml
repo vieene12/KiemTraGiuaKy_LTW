@@ -1,0 +1,74 @@
+@model DangKyHocPhan.Models.Course
+
+@{
+    ViewData["Title"] = "Thêm Học Phần Mới";
+}
+
+<div class="row justify-content-center my-4">
+    <div class="col-md-8">
+        <!-- Flat Card -->
+        <div class="card shadow-sm border">
+            <div class="card-header py-3">
+                <h4 class="mb-0 fw-bold text-dark d-flex align-items-center">
+                    <i class="bi bi-plus-square text-primary me-2"></i>
+                    Thêm Học Phần Mới
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Name" class="form-label fw-bold">Tên học phần</label>
+                        <input asp-for="Name" class="form-control" placeholder="Ví dụ: Lập trình Web ASP.NET Core" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Credits" class="form-label fw-bold">Số tín chỉ</label>
+                                <input asp-for="Credits" class="form-control" type="number" min="1" max="10" placeholder="Số tín chỉ (1 - 10)" />
+                                <span asp-validation-for="Credits" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="CategoryId" class="form-label fw-bold">Danh mục học phần</label>
+                                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId">
+                                    <option value="">-- Chọn danh mục --</option>
+                                </select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Lecturer" class="form-label fw-bold">Giảng viên phụ trách</label>
+                        <input asp-for="Lecturer" class="form-control" placeholder="Tên giảng viên" />
+                        <span asp-validation-for="Lecturer" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label asp-for="Image" class="form-label fw-bold">Đường dẫn hình ảnh</label>
+                        <input asp-for="Image" class="form-control" placeholder="Đường dẫn ảnh mẫu, ví dụ: /images/course.png" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between pt-3 border-top">
+                        <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center">
+                            <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách
+                        </a>
+                        <button type="submit" class="btn btn-primary fw-bold d-flex align-items-center">
+                            <i class="bi bi-check-lg me-1"></i> Thêm Mới
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

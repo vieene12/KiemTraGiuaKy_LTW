@@ -1,0 +1,71 @@
+@model DangKyHocPhan.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Đăng Ký Tài Khoản";
+}
+
+<div class="row justify-content-center my-5">
+    <div class="col-md-5">
+        <!-- Flat Card -->
+        <div class="card shadow-sm border">
+            <div class="card-body p-4">
+                <!-- Inner Title -->
+                <div class="text-center mb-4">
+                    <i class="bi bi-person-plus text-success fs-1"></i>
+                    <h3 class="fw-bold text-dark mt-2 mb-0">ĐĂNG KÝ TÀI KHOẢN</h3>
+                </div>
+
+                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Username" class="form-label fw-bold d-flex align-items-center">
+                            <i class="bi bi-person text-muted me-2"></i> Tên đăng nhập (Username)
+                        </label>
+                        <input asp-for="Username" class="form-control" placeholder="Nhập tên đăng nhập" />
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Email" class="form-label fw-bold d-flex align-items-center">
+                            <i class="bi bi-envelope text-muted me-2"></i> Email
+                        </label>
+                        <input asp-for="Email" class="form-control" placeholder="Nhập địa chỉ email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Password" class="form-label fw-bold d-flex align-items-center">
+                            <i class="bi bi-lock text-muted me-2"></i> Mật khẩu
+                        </label>
+                        <input asp-for="Password" class="form-control" type="password" placeholder="Tối thiểu 4 ký tự" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label asp-for="ConfirmPassword" class="form-label fw-bold d-flex align-items-center">
+                            <i class="bi bi-shield-check text-muted me-2"></i> Nhập lại mật khẩu
+                        </label>
+                        <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Xác nhận lại mật khẩu" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success fw-bold py-2">
+                            <i class="bi bi-person-check-fill me-1"></i> Đăng Ký
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- Flat Footer -->
+            <div class="card-footer text-center py-3">
+                <span class="text-muted">Đã có tài khoản? </span>
+                <a asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" class="text-decoration-none fw-bold">Đăng nhập</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

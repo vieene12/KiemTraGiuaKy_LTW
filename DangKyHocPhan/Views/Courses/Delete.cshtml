@@ -1,0 +1,56 @@
+@model DangKyHocPhan.Models.Course
+
+@{
+    ViewData["Title"] = "Xác Nhận Xóa";
+}
+
+<div class="row justify-content-center my-4">
+    <div class="col-md-6">
+        <!-- Flat Danger Card -->
+        <div class="card border-danger shadow-sm">
+            <div class="card-header bg-white border-danger py-3">
+                <h4 class="mb-0 fw-bold text-danger d-flex align-items-center">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Xác Nhận Xóa Học Phần
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <p class="lead text-danger fw-bold text-center mb-4">
+                    Bạn có chắc chắn muốn xóa học phần này không? Hành động này không thể hoàn tác.
+                </p>
+
+                <!-- Flat Details Panel -->
+                <div class="border p-3 bg-light mb-4">
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-bold text-dark">Tên học phần:</div>
+                        <div class="col-sm-8 text-secondary">@Model.Name</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-bold text-dark">Số tín chỉ:</div>
+                        <div class="col-sm-8 text-secondary">@Model.Credits</div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-4 fw-bold text-dark">Giảng viên:</div>
+                        <div class="col-sm-8 text-secondary">@Model.Lecturer</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 fw-bold text-dark">Danh mục:</div>
+                        <div class="col-sm-8 text-secondary">@(Model.Category?.Name ?? "N/A")</div>
+                    </div>
+                </div>
+
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex justify-content-between pt-3 border-top">
+                        <a asp-action="Index" class="btn btn-outline-secondary d-flex align-items-center">
+                            <i class="bi bi-x-lg me-1"></i> Hủy bỏ
+                        </a>
+                        <button type="submit" class="btn btn-danger fw-bold d-flex align-items-center">
+                            <i class="bi bi-trash-fill me-1"></i> Xác Nhận Xóa
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
